@@ -1,26 +1,70 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import { useField } from './hooks'
 
-function App() {
+import { Container } from 'semantic-ui-react'
+import userProfileService from './services/userProfiles'
+
+import UserProfileList from './components/UserProfileList'
+import UserProfileForm from './components/UserProfileForm'
+
+const App = () => {
+  const [userProfiles, setUserProfiles] = useState([])
+  const username = useField('text')
+  const email = useField('text')
+  const password = useField('password')
+  const [role, setRole] = useState('STAFF')
+
+  const handleRoleChange = event => {
+    setRole(event.target.value)
+    console.log(event.target.value)
+  }
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+    const profileToAdd = {
+      username: username.value,
+      email: email.value,
+      password: password.value,
+      role
+    }
+
+    console.log(profileToAdd)
+
+    try {
+      const response = await userProfileService
+        .create(profileToAdd)
+
+      setUserProfiles(userProfiles.concat(response))
+    } catch (error) {
+      console.error(error)
+    }
+
+
+    // .then(response => setUserProfiles(userProfiles.concat(response)))
+    // .catch(err => console.error(err))
+  }
+
+  useEffect(() => {
+    userProfileService
+      .getAll()
+      .then(initialUserProfiles => setUserProfiles(initialUserProfiles))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Container>
+      <UserProfileList
+        userProfiles={userProfiles}
+      />
+      <UserProfileForm
+        username={username}
+        email={email}
+        password={password}
+        onSubmit={handleSubmit}
+        handleRoleChange={handleRoleChange}
+      />
+    </Container>
+  )
 }
+
 
 export default App;
