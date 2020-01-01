@@ -1,22 +1,21 @@
-import React, { useState } from 'react'
-import userProfileService from '../services/userProfiles'
+import React, { useContext } from 'react'
+import { UserProfileContext } from '../context/UserProfileContext'
 import { Form } from 'semantic-ui-react'
 
 const options = [
-  { key: 'a', text: 'Admin', value: 'admin' },
-  { key: 's', text: 'Staff', value: 'staff' },
-  { key: 'u', text: 'User', value: 'user' },
+  { key: 'a', text: 'Admin', value: 'ADMIN' },
+  { key: 's', text: 'Staff', value: 'STAFF' },
+  { key: 'u', text: 'User', value: 'USER' },
 ]
 
-const UserProfileForm = ({
-  username,
-  email,
-  password,
-  role,
-  onSubmit,
-  handleRoleChange
-}) => {
-
+const UserProfileForm = () => {
+  const {
+    handleSubmit,
+    handleRoleChange,
+    username,
+    email,
+    password
+  } = useContext(UserProfileContext)
 
 
   const { reset: _, ...noResetUsername } = username
@@ -35,7 +34,7 @@ const UserProfileForm = ({
   /> */}
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={handleSubmit}>
 
       <Form.Field>
         <label>username</label>
@@ -52,9 +51,12 @@ const UserProfileForm = ({
       <Form.Field>
         <label>role</label>
         <select onChange={handleRoleChange}>
-          <option value="STAFF">STAFF</option>
+          {options.map(option =>
+            <option key={option.key} value={option.value}>{option.value}</option>
+          )}
+          {/* <option value="STAFF">STAFF</option>
           <option value="ADMIN">ADMIN</option>
-          <option value="USER">USER</option>
+          <option value="USER">USER</option> */}
         </select>
       </Form.Field>
 

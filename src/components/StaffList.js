@@ -1,15 +1,13 @@
 import React, { useContext } from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Tab } from 'semantic-ui-react'
+import { StaffContext } from '../context/StaffContext'
+
+import Staff from './Staff'
 import UserProfile from './UserProfile'
 import MainNavigation from './MainNavigation'
-import { UserProfileContext } from '../context/UserProfileContext'
 
-
-const UserProfileList = () => {
-  const { userProfiles,
-    handleProfileDelete,
-    handleProfileUpdate
-  } = useContext(UserProfileContext)
+const StaffList = () => {
+  const context = useContext(StaffContext)
 
   return (
     <div>
@@ -18,22 +16,19 @@ const UserProfileList = () => {
       <Table striped celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>id</Table.HeaderCell>
-            <Table.HeaderCell>Username</Table.HeaderCell>
-            <Table.HeaderCell>Email</Table.HeaderCell>
-            <Table.HeaderCell>Role</Table.HeaderCell>
-            <Table.HeaderCell>Action</Table.HeaderCell>
+            <Table.HeaderCell>First Name</Table.HeaderCell>
+            <Table.HeaderCell>Last Name</Table.HeaderCell>
+            <Table.HeaderCell>City</Table.HeaderCell>
+            <Table.HeaderCell>Street</Table.HeaderCell>
+            <Table.HeaderCell>Zip Code</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {userProfiles.map(userProfile =>
-            <Table.Row key={userProfile.id}>
-              <UserProfile
-                userProfile={userProfile}
-                handleDelete={handleProfileDelete}
-                handleUpdate={handleProfileUpdate}
-              />
+          {context.staffList.map(staff =>
+            <Table.Row key={staff.id}>
+              <Staff
+                staff={staff} />
             </Table.Row>
           )}
 
@@ -42,7 +37,7 @@ const UserProfileList = () => {
     </div>)
 }
 
-export default UserProfileList
+export default StaffList
 
 
 /* {context.userProfiles.map(userProfile =>
