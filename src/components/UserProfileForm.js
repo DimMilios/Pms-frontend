@@ -10,17 +10,13 @@ const options = [
 
 const UserProfileForm = () => {
   const {
-    handleSubmit,
+    handleProfileSubmit,
     handleRoleChange,
     username,
     email,
     password
   } = useContext(UserProfileContext)
 
-
-  const { reset: _, ...noResetUsername } = username
-  const { reset: __, ...noResetEmail } = email
-  const { reset: a, ...noResetPassword } = password
 
   {/* <Form.Input fluid label='Username' placeholder='Username' {...noResetUsername} />
       <Form.Input fluid label='Email' placeholder='Email' {...noResetEmail} />
@@ -34,19 +30,19 @@ const UserProfileForm = () => {
   /> */}
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleProfileSubmit}>
 
       <Form.Field>
         <label>username</label>
-        <input name="username" {...noResetUsername} />
+        <input name="username" {...username} />
       </Form.Field>
       <Form.Field>
         <label>email</label>
-        <input name="email"  {...noResetEmail} />
+        <input name="email"  {...email} />
       </Form.Field>
       <Form.Field>
         <label>password</label>
-        <input type="password" {...noResetPassword} />
+        <input type="password" {...password} />
       </Form.Field>
       <Form.Field>
         <label>role</label>
@@ -60,7 +56,9 @@ const UserProfileForm = () => {
         </select>
       </Form.Field>
 
-      <Form.Button>Submit</Form.Button>
+      <Form.Button>
+        Submit
+      </Form.Button>
     </Form>
   )
 }

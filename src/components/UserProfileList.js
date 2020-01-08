@@ -13,7 +13,6 @@ const UserProfileList = () => {
 
   return (
     <div>
-      <MainNavigation />
       <h2>User profiles</h2>
       <Table striped celled>
         <Table.Header>

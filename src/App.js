@@ -7,9 +7,10 @@ import {
 
 import { Container } from 'semantic-ui-react'
 
-import UserProfileList from './components/UserProfileList'
-import UserProfileForm from './components/UserProfileForm'
+import UserProfilesPage from './pages/UserProfilesPage'
 import StaffList from './components/StaffList'
+import UserProfilesList from './components/UserProfileList'
+import LoginPage from './pages/LoginPage'
 
 import GlobalState from './context/GlobalState'
 
@@ -20,7 +21,8 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path="/" component={StaffList} />
-            <Route exact path="/user-profiles" component={UserProfileList} />
+            <Route exact path="/user-profiles" component={UserProfilesPage} />
+            <Route exact path="/login" component={LoginPage} />
           </Switch>
         </Router>
       </Container>

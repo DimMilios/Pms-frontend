@@ -4,15 +4,19 @@ import { useField } from '../hooks'
 import userProfileService from '../services/userProfiles'
 import staffService from '../services/staff'
 
+
 import { UserProfileContext } from './UserProfileContext'
 import { StaffContext } from './StaffContext'
+import { UserContext } from './UserContext'
 
 const GlobalState = props => {
   const [userProfiles, setUserProfiles] = useState([])
-  const username = useField('text')
-  const email = useField('text')
-  const password = useField('password')
+  const [username, usernameReset] = useField('text')
+  const [email, emailReset] = useField('text')
+  const [password, passwordReset] = useField('password')
   const [role, setRole] = useState('STAFF')
+  const [user, setUser] = useState(null)
+
 
   const [staffList, setStaffList] = useState([])
 
@@ -22,9 +26,9 @@ const GlobalState = props => {
   }
 
   const resetAll = () => {
-    username.reset()
-    email.reset()
-    password.reset()
+    usernameReset()
+    emailReset()
+    passwordReset()
   }
 
   const handleProfileSubmit = async event => {
@@ -87,28 +91,41 @@ const GlobalState = props => {
       .then(initialStaff => setStaffList(initialStaff))
   }, [])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      userProfileService.setToken(user.token)
+    }
+  }, [])
+
   return (
     <>
-      <UserProfileContext.Provider
-        value={{
-          userProfiles,
-          handleProfileSubmit,
-          handleRoleChange,
-          handleProfileDelete,
-          handleProfileUpdate,
-          username,
-          email,
-          password,
-          role
-        }}
-      >
-        <StaffContext.Provider
+      <UserContext.Provider value={
+        [user, setUser]
+      }>
+        <UserProfileContext.Provider
           value={{
-            staffList
-          }}>
-          {props.children}
-        </StaffContext.Provider>
-      </UserProfileContext.Provider>
+            userProfiles,
+            handleProfileSubmit,
+            handleRoleChange,
+            handleProfileDelete,
+            handleProfileUpdate,
+            username,
+            email,
+            password,
+            role
+          }}
+        >
+          <StaffContext.Provider
+            value={{
+              staffList
+            }}>
+            {props.children}
+          </StaffContext.Provider>
+        </UserProfileContext.Provider>
+      </UserContext.Provider>
     </>
   )
 }

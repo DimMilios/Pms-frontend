@@ -8,7 +8,7 @@ class StaffService {
     if (!StaffService.instance) {
       StaffService.instance = this;
       // this.baseUrl = `/api/staff`;
-      this.baseUrl = `${process.env.REACT_APP_BACKEND}/staff`;
+      this.baseUrl = `${process.env.REACT_APP_BACKEND}/api/staff`;
       this.headers = {
         'content-type': 'application/json'
       }
