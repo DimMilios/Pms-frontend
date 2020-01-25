@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Table } from 'semantic-ui-react'
 import UserProfile from './UserProfile'
-import MainNavigation from './MainNavigation'
 import { UserProfileContext } from '../context/UserProfileContext'
 
 

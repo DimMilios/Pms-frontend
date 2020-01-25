@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { useField } from '../hooks'
 
 import userProfileService from '../services/userProfiles'
@@ -77,6 +78,17 @@ const GlobalState = props => {
   }
 
   useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const userToken = JSON.parse(loggedUserJSON)
+      setUser(userToken)
+      // userProfileService.setAuthorizationHeader(userToken)
+      // console.log(userToken)
+      axios.defaults.headers.common['Authorization'] = userToken
+    }
+  }, [])
+
+  useEffect(() => {
     userProfileService
       .getAll()
       .then(initialUserProfiles => {
@@ -89,16 +101,6 @@ const GlobalState = props => {
     staffService
       .getAll()
       .then(initialStaff => setStaffList(initialStaff))
-  }, [])
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser')
-    if (loggedUserJSON) {
-      const userToken = JSON.parse(loggedUserJSON)
-      setUser(userToken)
-      // console.log(user)
-      // axios.defaults.headers.common['Authorization'] = userToken
-    }
   }, [])
 
   return (

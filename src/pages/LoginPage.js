@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import loginService from '../services/login'
-import { Link } from 'react-router-dom'
+import userProfilesService from '../services/userProfiles'
+import MainNavigation from '../components/MainNavigation'
 
 import { UserContext } from '../context/UserContext'
 import { UserProfileContext } from '../context/UserProfileContext'
@@ -13,6 +14,7 @@ const LoginPage = () => {
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('loggedUser')
+    userProfilesService.removeAuthorizationHeader()
   }
 
   const handleLogin = async (event) => {
@@ -28,37 +30,29 @@ const LoginPage = () => {
     // userProfilesService.setToken(userData.token)
     console.log('Call from login page: ', userData.token)
     setUser(userData)
-    // console.log(user)
-    // } catch (exception) {
-    //   console.error(exception)
-    // }
 
-  }
-
-  if (user === null) {
-    return (
-      <div>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-              <input {...username} />
-          </div>
-          <div>
-            password
-              <input {...password} />
-          </div>
-          <button type="submit">login</button>
-        </form>
-      </div>
-    )
   }
 
   return (
     <>
-      <Button onClick={() => handleLogout()}>logout</Button>
-      <Button>
-        <Link to="/">Home</Link>
-      </Button>
+      <MainNavigation />
+      {user === null ?
+        (<div>
+          <form onSubmit={handleLogin}>
+            <div>
+              username
+              <input {...username} />
+            </div>
+            <div>
+              password
+              <input {...password} />
+            </div>
+            <button type="submit">login</button>
+          </form>
+        </div>
+        ) :
+        <Button onClick={() => handleLogout()}>logout</Button>
+      }
     </>
   )
 }

@@ -1,15 +1,10 @@
 import axios from 'axios'
 
-// // let instance = null;
-// /**
-//  * Singleton design pattern
-//  */
 class UserProfileService {
   constructor() {
     if (!UserProfileService.instance) {
       UserProfileService.instance = this;
       this.baseUrl = `${process.env.REACT_APP_BACKEND}/api/user-profiles`;
-      this.config = {};
     }
 
     return UserProfileService.instance;
@@ -27,7 +22,7 @@ class UserProfileService {
   }
 
   async getAll() {
-    const response = await axios.get(this.baseUrl, this.getConfig());
+    const response = await axios.get(this.baseUrl);
     return response.data;
   }
 

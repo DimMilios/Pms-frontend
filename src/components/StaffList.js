@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
-import { Table, Tab } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import { StaffContext } from '../context/StaffContext'
 
 import Staff from './Staff'
-import UserProfile from './UserProfile'
 import MainNavigation from './MainNavigation'
 
 const StaffList = () => {
