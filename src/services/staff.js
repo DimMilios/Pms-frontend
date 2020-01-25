@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-/**
- * Singleton design pattern
- */
 class StaffService {
   constructor() {
     if (!StaffService.instance) {

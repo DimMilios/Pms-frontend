@@ -14,7 +14,6 @@ const LoginPage = () => {
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('loggedUser')
-    userProfilesService.removeAuthorizationHeader()
   }
 
   const handleLogin = async (event) => {
