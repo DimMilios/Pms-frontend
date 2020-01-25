@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import loginService from '../services/login'
-import userProfilesService from '../services/userProfiles'
+import { Link } from 'react-router-dom'
 
 import { UserContext } from '../context/UserContext'
 import { UserProfileContext } from '../context/UserProfileContext'
@@ -12,7 +12,6 @@ const LoginPage = () => {
 
   const handleLogout = () => {
     setUser(null)
-    userProfilesService.destroyToken()
     window.localStorage.removeItem('loggedUser')
   }
 
@@ -24,11 +23,12 @@ const LoginPage = () => {
       username: username.value,
       password: password.value
     })
-    console.log(userData)
-    window.localStorage.setItem('loggedUser', JSON.stringify(userData))
-    userProfilesService.setToken(userData.token)
+    // console.log(userData)
+    window.localStorage.setItem('loggedUser', JSON.stringify(userData.token))
+    // userProfilesService.setToken(userData.token)
+    console.log('Call from login page: ', userData.token)
     setUser(userData)
-    console.log(user)
+    // console.log(user)
     // } catch (exception) {
     //   console.error(exception)
     // }
@@ -54,7 +54,12 @@ const LoginPage = () => {
   }
 
   return (
-    <Button onClick={() => handleLogout()}>logout</Button>
+    <>
+      <Button onClick={() => handleLogout()}>logout</Button>
+      <Button>
+        <Link to="/">Home</Link>
+      </Button>
+    </>
   )
 }
 

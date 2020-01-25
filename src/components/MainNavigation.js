@@ -11,6 +11,9 @@ const MainNavigation = () => {
       <Menu.Item>
         <NavLink to="/user-profiles">User Profiles</NavLink>
       </Menu.Item>
+      <Menu.Item>
+        <NavLink to="/login">Login</NavLink>
+      </Menu.Item>
     </Menu>
   )
 }

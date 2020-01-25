@@ -54,8 +54,6 @@ const GlobalState = props => {
   }
 
   const handleProfileDelete = profileId => {
-    const profile = userProfiles.find(p => p.id === profileId)
-
     userProfileService
       .remove(profileId)
       .then(() => setUserProfiles(userProfiles.filter(profile =>
@@ -64,7 +62,6 @@ const GlobalState = props => {
   }
 
   const handleProfileUpdate = profileId => {
-    const profile = userProfiles.find(p => p.id === profileId)
     const changedProfile = {
       username: 'ChangedUsername',
       email: 'changed@email.com',
@@ -82,7 +79,10 @@ const GlobalState = props => {
   useEffect(() => {
     userProfileService
       .getAll()
-      .then(initialUserProfiles => setUserProfiles(initialUserProfiles))
+      .then(initialUserProfiles => {
+        console.log(initialUserProfiles);
+        setUserProfiles(initialUserProfiles)
+      })
   }, [])
 
   useEffect(() => {
@@ -94,9 +94,10 @@ const GlobalState = props => {
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      userProfileService.setToken(user.token)
+      const userToken = JSON.parse(loggedUserJSON)
+      setUser(userToken)
+      // console.log(user)
+      // axios.defaults.headers.common['Authorization'] = userToken
     }
   }, [])
 
