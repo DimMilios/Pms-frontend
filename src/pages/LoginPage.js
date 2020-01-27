@@ -1,59 +1,58 @@
-import React, { useContext } from 'react'
-import loginService from '../services/login'
-import userProfilesService from '../services/userProfiles'
+import React, { useState } from 'react'
+import { useField } from '../hooks'
+
+import { Button } from 'semantic-ui-react'
 import MainNavigation from '../components/MainNavigation'
 
-import { UserContext } from '../context/UserContext'
-import { UserProfileContext } from '../context/UserProfileContext'
-import { Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { loginUser, logoutUser } from '../store/actions/loginActions'
 
-const LoginPage = () => {
-  const [user, setUser] = useContext(UserContext)
-  const { username, password } = useContext(UserProfileContext)
+
+const LoginPage = props => {
+  const [user, setUser] = useState(null)
+  const [username, usernameReset] = useField('text')
+  const [password, passwordReset] = useField('password')
 
   const handleLogout = () => {
-    setUser(null)
-    window.localStorage.removeItem('loggedUser')
+    // setUser(null)
+    // window.localStorage.removeItem('loggedUser')
   }
 
   const handleLogin = async (event) => {
     event.preventDefault()
 
     // try {
-    const userData = await loginService.login({
+    const userData = {
       username: username.value,
       password: password.value
-    })
-    // console.log(userData)
-    window.localStorage.setItem('loggedUser', JSON.stringify(userData.token))
-    // userProfilesService.setToken(userData.token)
-    console.log('Call from login page: ', userData.token)
-    setUser(userData)
-
+    }
+    console.log(userData)
+    setUser(props.loginUser(userData, props.history))
   }
 
   return (
     <>
       <MainNavigation />
-      {user === null ?
-        (<div>
-          <form onSubmit={handleLogin}>
-            <div>
-              username
+      <div>
+        <form onSubmit={handleLogin}>
+          <div>
+            username
               <input {...username} />
-            </div>
-            <div>
-              password
+          </div>
+          <div>
+            password
               <input {...password} />
-            </div>
-            <button type="submit">login</button>
-          </form>
-        </div>
-        ) :
-        <Button onClick={() => handleLogout()}>logout</Button>
-      }
+          </div>
+          <button type="submit">login</button>
+        </form>
+      </div>
+      <Button onClick={props.logoutUser}>logout</Button>
     </>
   )
 }
 
-export default LoginPage
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, { loginUser, logoutUser })(LoginPage)

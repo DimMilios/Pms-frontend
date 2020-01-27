@@ -2,13 +2,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
 import patientReducer from './reducers/patientReducer'
+import loginReducer from './reducers/loginReducer'
 
 const initialState = {}
 
 const middleware = [thunk]
 
 const reducers = combineReducers({
-  patients: patientReducer
+  patients: patientReducer,
+  user: loginReducer
 })
 
 const composeEnhancers =

@@ -4,6 +4,8 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 import { Provider } from 'react-redux'
 
@@ -15,7 +17,22 @@ import UserProfilesPage from './pages/UserProfilesPage'
 import StaffList from './components/StaffList'
 import LoginPage from './pages/LoginPage'
 
+import { logoutUser } from './store/actions/loginActions'
+
 // import GlobalState from './context/GlobalState'
+
+const token = localStorage.getItem('loggedUser')
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser());
+    window.location.href = '/login';
+  } else {
+    // store.dispatch({ type:  });
+    axios.defaults.headers.common['Authorization'] = token;
+    // store.dispatch(getUserData());
+  }
+}
 
 const App = () => {
   return (
@@ -25,8 +42,8 @@ const App = () => {
         <Router>
           <Switch>
             {/* <Route exact path="/" component={StaffList} /> */}
-            <Route exact path="/user-profiles" component={UserProfilesPage} />
-            {/* <Route exact path="/login" component={LoginPage} /> */}
+            <Route exact path="/" component={UserProfilesPage} />
+            <Route exact path="/login" component={LoginPage} />
           </Switch>
         </Router>
       </Container>
