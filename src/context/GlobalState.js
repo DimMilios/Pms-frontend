@@ -4,6 +4,7 @@ import { useField } from '../hooks'
 
 import userProfileService from '../services/userProfiles'
 import staffService from '../services/staff'
+import patientService from '../services/patients'
 
 
 import { UserProfileContext } from './UserProfileContext'

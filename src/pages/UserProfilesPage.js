@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MainNavigation from '../components/MainNavigation'
 import UserProfilesForm from '../components/UserProfileForm'
 import UserProfilesList from '../components/UserProfileList'
+import PatientList from '../components/PatientList'
 
-const UserProfilesPage = () => {
+const UserProfilesPage = props => {
+
   return (
     <>
       <MainNavigation />
-      <UserProfilesList />
-      <UserProfilesForm />
+      <PatientList />
+      {/* <UserProfilesList />
+      <UserProfilesForm /> */}
     </>
   )
 }
