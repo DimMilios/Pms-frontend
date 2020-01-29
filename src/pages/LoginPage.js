@@ -5,7 +5,7 @@ import { Button } from 'semantic-ui-react'
 import MainNavigation from '../components/MainNavigation'
 
 import { connect } from 'react-redux'
-import { loginUser, logoutUser } from '../store/actions/loginActions'
+import { loginUser, logoutUser } from '../store/actions/authActions'
 
 
 const LoginPage = props => {

@@ -4,6 +4,14 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
+// Register reducer types
+export const REGISTER_START = 'REGISTER_START';
+export const REGISTER_NEXT = 'REGISTER_NEXT';
+export const REGISTER_PREV = 'REGISTER_PREV';
+export const REGISTER_CONFIRM = 'REGISTER_CONFIRM';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
+
 // UI reducer types
 export const SET_ERRORS = 'SET_ERRORS';
 export const LOADING_UI = 'LOADING_UI';

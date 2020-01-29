@@ -23,10 +23,10 @@ export const loginUser = (userData, history) => dispatch => {
       history.push('/')
     })
     .catch(err => {
-      console.log(err)
+      console.log('login error', err)
       dispatch({
         type: AUTH_FAIL,
-        payload: err.response.data
+        payload: err
       })
     })
 }

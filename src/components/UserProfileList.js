@@ -1,14 +1,9 @@
 import React, { useContext } from 'react'
 import { Table } from 'semantic-ui-react'
 import UserProfile from './UserProfile'
-import { UserProfileContext } from '../context/UserProfileContext'
 
 
 const UserProfileList = () => {
-  const { userProfiles,
-    handleProfileDelete,
-    handleProfileUpdate
-  } = useContext(UserProfileContext)
 
   return (
     <div>
@@ -25,7 +20,7 @@ const UserProfileList = () => {
         </Table.Header>
 
         <Table.Body>
-          {userProfiles.map(userProfile =>
+          {/* {userProfiles.map(userProfile =>
             <Table.Row key={userProfile.id}>
               <UserProfile
                 userProfile={userProfile}
@@ -33,7 +28,7 @@ const UserProfileList = () => {
                 handleUpdate={handleProfileUpdate}
               />
             </Table.Row>
-          )}
+          )} */}
 
         </Table.Body>
       </Table>

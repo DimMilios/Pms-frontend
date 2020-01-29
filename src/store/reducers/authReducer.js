@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
     case AUTH_FAIL:
       return {
         ...state,
-        error: action.error,
+        error: action.payload.message,
         loading: false
       }
     case AUTH_LOGOUT:

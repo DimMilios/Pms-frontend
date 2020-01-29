@@ -13,13 +13,12 @@ import store from './store/store'
 
 import { Container } from 'semantic-ui-react'
 
-import UserProfilesPage from './pages/UserProfilesPage'
-import StaffList from './components/StaffList'
+import HomePage from './pages/HomePage'
+// import UserProfilesPage from './pages/UserProfilesPage'
 import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
 
-import { logoutUser } from './store/actions/loginActions'
-
-// import GlobalState from './context/GlobalState'
+import { logoutUser } from './store/actions/authActions'
 
 const token = localStorage.getItem('loggedUser')
 if (token) {
@@ -37,17 +36,16 @@ if (token) {
 const App = () => {
   return (
     <Provider store={store}>
-      {/* <GlobalState> */}
       <Container>
         <Router>
           <Switch>
-            {/* <Route exact path="/" component={StaffList} /> */}
-            <Route exact path="/" component={UserProfilesPage} />
+            <Route exact path="/" component={HomePage} />
+            {/* <Route exact path="/" component={UserProfilesPage} /> */}
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/signup" component={SignUpPage} />
           </Switch>
         </Router>
       </Container>
-      {/* </GlobalState> */}
     </Provider>
   )
 }
