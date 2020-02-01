@@ -1,37 +1,41 @@
 import React, { useState } from 'react'
 import { Form } from 'semantic-ui-react'
+
 import { useField } from '../hooks'
 
 const options = [
+  { key: 'u', text: 'User', value: 'USER' },
   { key: 'a', text: 'Admin', value: 'ADMIN' },
   { key: 's', text: 'Staff', value: 'STAFF' },
-  { key: 'u', text: 'User', value: 'USER' },
 ]
 
-const UserDetailsForm = (userProfile) => {
-  const [username, usernameReset] = useField('text')
-  const [email, emailReset] = useField('email')
-  const [password, passwordReset] = useField('password')
-  const [role, roleReset] = useField('text')
+const UserDetailsForm = props => {
+  const [username, usernameReset] = useField('text', props.userProfile.username)
+  const [email, emailReset] = useField('email', props.userProfile.email)
+  const [password, passwordReset] = useField('password', props.userProfile.password)
+  const [role, setRole] = useState('USER')
 
-  const handleProfileSubmit = event => {
-    event.preventDefault()
+  const handleRoleChange = e => {
+    setRole(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const stepContinue = step => e => {
+    e.preventDefault()
 
     const userData = {
       username: username.value,
       email: email.value,
       password: password.value,
-      role: role.value
+      role: role
     }
     console.log(userData)
-  }
-
-  const handleRoleChange = event => {
-
+    props.setUserProfile(userData)
+    props.nextStep(step)
   }
 
   return (
-    <Form onSubmit={handleProfileSubmit}>
+    <Form>
       <Form.Field>
         <label>username</label>
         <input name="username" {...username} />
@@ -52,10 +56,9 @@ const UserDetailsForm = (userProfile) => {
           )}
         </select>
       </Form.Field>
-      {/* {console.log(userProfile)} */}
-      <Form.Button>
-        Submit
-      </Form.Button>
+      <div style={{ marginTop: 20, float: 'right' }}>
+        <Form.Button primary onClick={stepContinue(props.step)}>Continue</Form.Button>
+      </div>
     </Form>
   )
 }

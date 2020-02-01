@@ -1,6 +1,9 @@
 import {
-  REGISTER_NEXT,
-  REGISTER_PREV,
+  REGISTER_NEXT_STEP,
+  REGISTER_PREV_STEP,
+  REGISTER_SET_USEPROFILE,
+  REGISTER_SET_REST,
+  REGISTER_SUCCESS,
 } from '../types'
 
 const initialState = {
@@ -14,64 +17,64 @@ const initialState = {
   firstName: '',
   lastName: '',
   fatherName: '',
-  occupation: '',
   city: '',
   streetAddress: '',
   zipCode: '',
+  staffType: '',
   phoneNumbers: []
 }
 
-function stepCounter(state = 1, action) {
-  switch (action.type) {
-    case REGISTER_NEXT:
-      return state + 1
-    case REGISTER_PREV:
-      return state - 1
-    default:
-      return state
-  }
-}
-
-function userProfile(state, action) {
-  switch (action.type) {
-    case REGISTER_NEXT:
-      return {
-        ...action.payload.userProfile
-      }
-    case REGISTER_PREV:
-      return {
-        ...action.payload.userProfile
-      }
-    default:
-      return state
-  }
-}
-
-export default function register(state = initialState, action) {
-
+const nextStep = (state, action) => {
+  console.log('reducer', action)
   return {
     ...state,
-    // step: stepCounter(state.step, action),
-    userProfile: userProfile({ userProfile: state.userProfile }, action)
-    // todos: todos(state.todos, action)
+    step: +[action.step] + 1,
   }
 }
 
-// export default function (state = initialState, action) {
-//   switch (action.type) {
-//     case REGISTER_NEXT:
-//       console.log('NEXT STEP')
-//       return {
-//         ...state,
-//         step: action.step.step + 1
-//       }
-//     case REGISTER_PREV:
-//       console.log('PREV STEP', action.step.step)
-//       return {
-//         ...state,
-//         step: action.step.step - 1
-//       }
-//     default:
-//       return state
-//   }
-// }
+const prevStep = (state, action) => {
+  return {
+    ...state,
+    step: +[action.step] - 1,
+  }
+}
+
+const setUserProfile = (state, action) => ({
+  ...state,
+  userProfile: action.userProfile
+})
+
+const setRest = (state, action) => {
+  console.log('Register set rest:', action)
+  return {
+    ...state,
+    ...action.rest
+  }
+}
+
+const registerSuccess = (state, action) => {
+  console.log('Register success')
+  return {
+    ...state,
+    ...action.payload
+  }
+}
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REGISTER_NEXT_STEP:
+      return nextStep(state, action)
+    case REGISTER_PREV_STEP:
+      return prevStep(state, action)
+    case REGISTER_SET_USEPROFILE:
+      return setUserProfile(state, action)
+    case REGISTER_SET_REST:
+      return setRest(state, action)
+    case REGISTER_SUCCESS:
+      return registerSuccess(state, action)
+    default:
+      return state
+  }
+}
+
+export default reducer

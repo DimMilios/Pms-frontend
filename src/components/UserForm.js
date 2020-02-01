@@ -1,25 +1,39 @@
 import React from 'react'
 
-// import { connect } from 'react-redux'
-
-// import { nextStep, previousStep } from '../store/actions/registerActions'
-
 import PersonalDetailsForm from './PersonalDetailsForm'
 import UserDetailsForm from './UserDetailsForm'
 import RegisterConfirm from './RegisterConfirm'
 
-import { Button } from 'semantic-ui-react'
+const UserForm = ({
+  step,
+  nextStep,
+  previousStep,
+  userProfile,
+  setUserProfile,
+  rest,
+  setRest }) => {
 
-const UserForm = ({ step, userProfile, nextStep, previousStep }) => {
   const renderForm = () => {
     switch (step) {
       case 1:
         return (
-          <UserDetailsForm userProfile={userProfile} />
+          <UserDetailsForm
+            step={step}
+            nextStep={nextStep}
+            previousStep={previousStep}
+            userProfile={userProfile}
+            setUserProfile={setUserProfile}
+          />
         )
       case 2:
         return (
-          <PersonalDetailsForm />
+          <PersonalDetailsForm
+            step={step}
+            nextStep={nextStep}
+            previousStep={previousStep}
+            rest={rest}
+            setRest={setRest}
+          />
         )
       case 3:
         return (
@@ -33,27 +47,18 @@ const UserForm = ({ step, userProfile, nextStep, previousStep }) => {
   return (
     <div>
       {renderForm()}
-      {console.log({ userProfile, step })}
-
-      <div style={{ marginTop: 20, float: 'right' }}>
-        {step > 1 ?
-          <Button style={{ marginRight: 5 }} onClick={() => previousStep()}>Back</Button>
-          : null
+      {/* <div style={{ marginTop: 20, float: 'right' }}>
+        {step > 1 &&
+          <Button style={{ marginRight: 5 }} onClick={() => previousStep(step)}>Back</Button>
         }
 
-        {step <= 3 ?
-          <Button primary onClick={() => nextStep()}>Continue</Button>
-          : null
+        {step <= 3 &&
+          <Button primary onClick={() => nextStep(step)}>Continue</Button>
         }
-      </div>
+        {console.log('UserForm profile: ', userProfile)}
+      </div> */}
     </div>
   )
 }
 
-// const mapStateToProps = state => ({
-//   step: state.step,
-//   userProfile: state.useProfile
-// })
-
-// export default connect(mapStateToProps, { nextStep, previousStep })(UserForm)
 export default UserForm

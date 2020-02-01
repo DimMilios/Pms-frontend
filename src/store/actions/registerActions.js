@@ -1,7 +1,9 @@
 import {
   REGISTER_START,
-  REGISTER_NEXT,
-  REGISTER_PREV,
+  REGISTER_NEXT_STEP,
+  REGISTER_PREV_STEP,
+  REGISTER_SET_USEPROFILE,
+  REGISTER_SET_REST,
   REGISTER_CONFIRM,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -31,24 +33,35 @@ export const registerUser = (userData, history) => dispatch => {
     })
 }
 
-export const nextStep = (userProfile, step) => {
+export const nextStep = (step) => {
   // console.log('NEXT STEP')
   return {
-    type: REGISTER_NEXT,
-    payload: {
-      step,
-      userProfile
-    }
+    type: REGISTER_NEXT_STEP,
+    step: step
   }
 }
 
-export const previousStep = (userProfile, step) => {
-  console.log('PREV STEP', userProfile)
+export const previousStep = (step) => {
+  console.log('PREV STEP')
   return {
-    type: REGISTER_PREV,
-    payload: {
-      step,
-      userProfile
-    }
+    type: REGISTER_PREV_STEP,
+    step: step
+  }
+}
+
+
+export const setUserProfile = userProfile => {
+  console.log('SET USER PROFILE')
+  return {
+    type: REGISTER_SET_USEPROFILE,
+    userProfile: userProfile
+  }
+}
+
+export const setRest = rest => {
+  console.log('SET REST ACTION')
+  return {
+    type: REGISTER_SET_REST,
+    rest: rest
   }
 }
