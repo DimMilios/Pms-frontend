@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useField } from '../hooks'
+import { Link } from 'react-router-dom'
 
-import { Button } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
 import MainNavigation from '../components/MainNavigation'
 
 import { connect } from 'react-redux'
@@ -9,7 +10,6 @@ import { loginUser, logoutUser } from '../store/actions/authActions'
 
 
 const LoginPage = props => {
-  const [user, setUser] = useState(null)
   const [username, usernameReset] = useField('text')
   const [password, passwordReset] = useField('password')
 
@@ -27,26 +27,33 @@ const LoginPage = props => {
       password: password.value
     }
     console.log(userData)
-    setUser(props.loginUser(userData, props.history))
+    props.loginUser(userData, props.history)
   }
 
   return (
     <>
       <MainNavigation />
-      <div>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-              <input {...username} />
-          </div>
-          <div>
-            password
-              <input {...password} />
-          </div>
-          <button type="submit">login</button>
-        </form>
-      </div>
-      <Button onClick={props.logoutUser}>logout</Button>
+      {props.user.authenticated ?
+        <div>
+          <h3>You are logged in.</h3>
+          <Link to="/">Go back to Home page</Link>
+        </div>
+        :
+        <>
+          <Form onSubmit={handleLogin}>
+            <Form.Field>
+              <label>Username</label>
+              <input name="username" {...username} />
+            </Form.Field>
+            <Form.Field>
+              <label>Password</label>
+              <input name="password" {...password} />
+            </Form.Field>
+            <Button style={{ float: 'right' }} primary type="submit">Login</Button>
+          </Form>
+          <Button onClick={props.logoutUser}>logout</Button>
+        </>
+      }
     </>
   )
 }

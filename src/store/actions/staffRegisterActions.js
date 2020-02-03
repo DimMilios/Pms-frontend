@@ -4,15 +4,15 @@ import {
   REGISTER_PREV_STEP,
   REGISTER_SET_USEPROFILE,
   REGISTER_SET_REST,
-  REGISTER_CONFIRM,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  REGISTER_CLEAR,
 } from '../types'
 
 import staffService from '../../services/staff'
 
 // can log user in when sign up is successful
-export const registerUser = (userData, history) => dispatch => {
+export const registerUser = userData => dispatch => {
   dispatch({ type: REGISTER_START })
   console.log('STARTING REGISTRATION', userData)
   staffService.create({ ...userData })
@@ -21,6 +21,9 @@ export const registerUser = (userData, history) => dispatch => {
       dispatch({
         type: REGISTER_SUCCESS,
         payload: response
+      })
+      dispatch({
+        type: REGISTER_CLEAR
       })
       // history.push('/')
     })

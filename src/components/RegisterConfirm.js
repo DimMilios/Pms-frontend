@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { previousStep, registerUser } from '../store/actions/registerActions'
+import { previousStep, registerUser } from '../store/actions/staffRegisterActions'
 
 import { Button, Table } from 'semantic-ui-react'
 
@@ -27,7 +27,7 @@ const RegisterConfirm = props => {
       staffType: props.staffType,
       phoneNumbers: props.phoneNumbers
     }
-    props.registerUser(userData)
+    await props.registerUser(userData)
     history.push('/')
   }
 
@@ -48,22 +48,25 @@ const RegisterConfirm = props => {
 
 
         <Table.Body>
-          {/* {Object.entries(props).map(([key, value]) => {
-            if (value !== props.userProfile)
+          {Object.entries(props).map(([key, value]) => {
+            if (typeof value !== 'object'
+              && typeof value !== 'function'
+              && value !== props.step) {
               return (
                 <Table.Row key={key}>
                   <Table.Cell>{key}</Table.Cell>
                   <Table.Cell>{value}</Table.Cell>
                 </Table.Row>
               )
-          })} */}
+            }
+            return null
+          })}
           {Object.entries(props.userProfile).map(([key, value]) =>
             <Table.Row key={key}>
               <Table.Cell>{key}</Table.Cell>
               <Table.Cell>{value}</Table.Cell>
             </Table.Row>
-          )
-          }
+          )}
           {/* <Table.Row>
             <Table.Cell>Username:</Table.Cell>
             <Table.Cell>{props.userProfile.username}</Table.Cell>
@@ -118,16 +121,16 @@ const RegisterConfirm = props => {
 }
 
 const mapStateToProps = state => ({
-  step: state.signUp.step,
-  userProfile: state.signUp.userProfile,
-  firstName: state.signUp.firstName,
-  lastName: state.signUp.lastName,
-  fatherName: state.signUp.fatherName,
-  city: state.signUp.city,
-  streetAddress: state.signUp.streetAddress,
-  zipCode: state.signUp.zipCode,
-  staffType: state.signUp.staffType,
-  phoneNumbers: state.signUp.phoneNumbers
+  step: state.staffRegister.step,
+  userProfile: state.staffRegister.userProfile,
+  firstName: state.staffRegister.firstName,
+  lastName: state.staffRegister.lastName,
+  fatherName: state.staffRegister.fatherName,
+  city: state.staffRegister.city,
+  streetAddress: state.staffRegister.streetAddress,
+  zipCode: state.staffRegister.zipCode,
+  staffType: state.staffRegister.staffType,
+  phoneNumbers: state.staffRegister.phoneNumbers
 })
 
 export default connect(mapStateToProps, {

@@ -31,5 +31,4 @@ class PatientService {
 }
 
 const instance = new PatientService();
-Object.freeze(instance);
 export default instance;

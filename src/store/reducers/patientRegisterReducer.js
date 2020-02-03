@@ -4,24 +4,28 @@ import {
   REGISTER_SET_USEPROFILE,
   REGISTER_SET_REST,
   REGISTER_SUCCESS,
+  REGISTER_CLEAR,
 } from '../types'
 
 const initialState = {
   step: 1,
+  ssn: 0,
   userProfile: {
     username: '',
     password: '',
     email: '',
-    role: '',
+    role: 'USER',
   },
+  occupation: '',
+  birthDate: '',
+  sex: '',
   firstName: '',
   lastName: '',
   fatherName: '',
-  city: '',
-  streetAddress: '',
-  zipCode: '',
-  staffType: '',
-  phoneNumbers: []
+  // city: '',
+  // streetAddress: '',
+  // zipCode: '',
+  // phoneNumbers: []
 }
 
 const nextStep = (state, action) => {
@@ -72,6 +76,8 @@ const reducer = (state = initialState, action) => {
       return setRest(state, action)
     case REGISTER_SUCCESS:
       return registerSuccess(state, action)
+    case REGISTER_CLEAR:
+      return initialState
     default:
       return state
   }

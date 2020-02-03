@@ -2,7 +2,7 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
-import { nextStep, previousStep, setUserProfile, setRest } from '../store/actions/registerActions'
+import { nextStep, previousStep, setUserProfile, setRest } from '../store/actions/staffRegisterActions'
 
 import MainNavigation from '../components/MainNavigation'
 import UserForm from '../components/UserForm'
@@ -36,16 +36,16 @@ const SignUpPage = props => {
 }
 
 const mapStateToProps = state => ({
-  step: state.signUp.step,
-  userProfile: state.signUp.userProfile,
-  firstName: state.signUp.firstName,
-  lastName: state.signUp.lastName,
-  fatherName: state.signUp.fatherName,
-  city: state.signUp.city,
-  streetAddress: state.signUp.streetAddress,
-  zipCode: state.signUp.zipCode,
-  staffType: state.signUp.staffType,
-  phoneNumbers: state.signUp.phoneNumbers
+  step: state.staffRegister.step,
+  userProfile: state.staffRegister.userProfile,
+  firstName: state.staffRegister.firstName,
+  lastName: state.staffRegister.lastName,
+  fatherName: state.staffRegister.fatherName,
+  city: state.staffRegister.city,
+  streetAddress: state.staffRegister.streetAddress,
+  zipCode: state.staffRegister.zipCode,
+  staffType: state.staffRegister.staffType,
+  phoneNumbers: state.staffRegister.phoneNumbers
 })
 
 export default connect(mapStateToProps, {

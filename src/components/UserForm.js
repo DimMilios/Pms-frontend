@@ -1,8 +1,10 @@
 import React from 'react'
 
-import PersonalDetailsForm from './PersonalDetailsForm'
+import StaffDetailsForm from './StaffDetailsForm'
+import PatientDetailsForm from './PatientDetailsForm'
 import UserDetailsForm from './UserDetailsForm'
 import RegisterConfirm from './RegisterConfirm'
+import PatientConfirm from './PatientConfirm'
 
 const UserForm = ({
   step,
@@ -26,19 +28,26 @@ const UserForm = ({
           />
         )
       case 2:
-        return (
-          <PersonalDetailsForm
+        return userProfile.role === 'STAFF' ?
+          <StaffDetailsForm
             step={step}
             nextStep={nextStep}
             previousStep={previousStep}
             rest={rest}
             setRest={setRest}
           />
-        )
+          :
+          <PatientDetailsForm
+            step={step}
+            nextStep={nextStep}
+            previousStep={previousStep}
+            rest={rest}
+            setRest={setRest}
+          />
       case 3:
-        return (
-          <RegisterConfirm />
-        )
+        return userProfile.role === 'STAFF'
+          ? <RegisterConfirm />
+          : <PatientConfirm />
       default:
         return null
     }
