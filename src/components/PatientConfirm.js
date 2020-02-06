@@ -84,19 +84,19 @@ const PatientConfirm = props => {
 }
 
 const mapStateToProps = state => ({
-  step: state.patientRegister.step,
-  ssn: state.patientRegister.ssn,
-  userProfile: state.patientRegister.userProfile,
-  firstName: state.patientRegister.firstName,
-  lastName: state.patientRegister.lastName,
-  fatherName: state.patientRegister.fatherName,
-  occupation: state.patientRegister.occupation,
-  birthDate: state.patientRegister.birthDate,
-  sex: state.patientRegister.sex,
-  city: state.patientRegister.city,
-  streetAddress: state.patientRegister.streetAddress,
-  zipCode: state.patientRegister.zipCode,
-  phoneNumbers: state.patientRegister.phoneNumbers
+  step: state.register.step,
+  ssn: state.register.ssn,
+  userProfile: state.register.userProfile,
+  firstName: state.register.firstName,
+  lastName: state.register.lastName,
+  fatherName: state.register.fatherName,
+  occupation: state.register.occupation,
+  birthDate: state.register.birthDate,
+  sex: state.register.sex,
+  city: state.register.city,
+  streetAddress: state.register.streetAddress,
+  zipCode: state.register.zipCode,
+  phoneNumbers: state.register.phoneNumbers
 })
 
 export default connect(mapStateToProps, {

@@ -22,30 +22,34 @@ const SignUpPage = props => {
   return (
     <div>
       <MainNavigation />
-      <UserForm
-        step={props.step}
-        userProfile={props.userProfile}
-        nextStep={props.nextStep}
-        previousStep={props.previousStep}
-        setUserProfile={props.setUserProfile}
-        setRest={props.setRest}
-        rest={rest}
-      />
+      {!props.user.authenticated
+        ? <UserForm
+          step={props.step}
+          userProfile={props.userProfile}
+          nextStep={props.nextStep}
+          previousStep={props.previousStep}
+          setUserProfile={props.setUserProfile}
+          setRest={props.setRest}
+          rest={rest}
+        />
+        : <p>You already logged in</p>
+      }
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  step: state.staffRegister.step,
-  userProfile: state.staffRegister.userProfile,
-  firstName: state.staffRegister.firstName,
-  lastName: state.staffRegister.lastName,
-  fatherName: state.staffRegister.fatherName,
-  city: state.staffRegister.city,
-  streetAddress: state.staffRegister.streetAddress,
-  zipCode: state.staffRegister.zipCode,
-  staffType: state.staffRegister.staffType,
-  phoneNumbers: state.staffRegister.phoneNumbers
+  user: state.user,
+  step: state.register.step,
+  userProfile: state.register.userProfile,
+  firstName: state.register.firstName,
+  lastName: state.register.lastName,
+  fatherName: state.register.fatherName,
+  city: state.register.city,
+  streetAddress: state.register.streetAddress,
+  zipCode: state.register.zipCode,
+  staffType: state.register.staffType,
+  phoneNumbers: state.register.phoneNumbers
 })
 
 export default connect(mapStateToProps, {

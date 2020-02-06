@@ -4,7 +4,8 @@ import thunk from 'redux-thunk'
 import patientReducer from './reducers/patientReducer'
 import authReducer from './reducers/authReducer'
 import staffRegisterReducer from './reducers/staffRegisterReducer'
-import patientRegisterReducer from './reducers/patientRegisterReducer'
+import appointmentReducer from './reducers/appointmentReducer'
+// import patientRegisterReducer from './reducers/patientRegisterReducer'
 
 const initialState = {}
 
@@ -13,8 +14,9 @@ const middleware = [thunk]
 const reducers = combineReducers({
   patients: patientReducer,
   user: authReducer,
-  staffRegister: staffRegisterReducer,
-  patientRegister: patientRegisterReducer,
+  register: staffRegisterReducer,
+  appointment: appointmentReducer,
+  // patientRegister: patientRegisterReducer,
 })
 
 const composeEnhancers =

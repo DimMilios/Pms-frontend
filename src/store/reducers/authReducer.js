@@ -22,7 +22,8 @@ export default function (state = initialState, action) {
       }
     case AUTH_SUCCESS:
       return {
-        ...action.payload,
+        ...state,
+        token: action.payload,
         authenticated: true,
         error: null,
         loading: false

@@ -14,6 +14,12 @@ import { useField } from '../hooks'
 //   staffType: '',
 //   phoneNumbers: []
 
+const buttonStyle = {
+  marginTop: 20,
+  float: 'right',
+  display: 'flex'
+}
+
 const staffOptions = [
   { key: 'l', text: 'Lab_staff', value: 'Lab Staff' },
   { key: 'd', text: 'Doctor', value: 'Doctor' },
@@ -29,6 +35,8 @@ const PersonalDetailsForm = props => {
   const [streetAddress, streetAddressReset] = useField('text', props.rest.streetAddress)
   const [zipCode, zipCodeReset] = useField('number', props.rest.zipCode)
   const [staffType, setStaffType] = useState(staffOptions[0].value)
+  const [phoneNumbers, setPhoneNumbers] = useState([{ phoneNumber: '' }])
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const stepContinue = step => e => {
     e.preventDefault()
@@ -40,8 +48,8 @@ const PersonalDetailsForm = props => {
       city: city.value,
       streetAddress: streetAddress.value,
       zipCode: zipCode.value,
-      staffType
-      //   phoneNumbers: []
+      staffType,
+      phoneNumbers,
     }
     console.log(rest, step)
     props.setRest(rest)
@@ -56,6 +64,43 @@ const PersonalDetailsForm = props => {
   const handleStaffTypeChange = e => {
     setStaffType(e.target.value)
     console.log(e.target.value)
+  }
+
+  const handlePhoneNumbersChange = id => event => {
+    console.log(id, event.target.value)
+    setPhoneNumbers(phoneNumbers.map((number, newId) => {
+      return id === newId
+        ? { ...number, phoneNumber: event.target.value }
+        : number
+    }))
+  }
+
+  const handleAddNumber = () =>
+    setPhoneNumbers(phoneNumbers.concat([{ phoneNumber: '' }]))
+
+  const handleNumberRemove = id => {
+    setPhoneNumbers(phoneNumbers.filter((p, newId) => id !== newId))
+  }
+
+  const addNumbersJsx = () => {
+    return (
+      <div>
+        {phoneNumbers.map((number, id) => (
+          <div key={id}>
+            <input
+              name="phoneNumber"
+              type="text"
+              value={number.phoneNumber}
+              onChange={handlePhoneNumbersChange(id)}
+              placeholder="Phone Number"
+            />
+            <Button negative onClick={() => handleNumberRemove(id)}>
+              Remove
+            </Button>
+          </div>
+        ))}
+        <Button onClick={handleAddNumber}>+</Button>
+      </div>)
   }
 
   return (
@@ -88,6 +133,9 @@ const PersonalDetailsForm = props => {
           <input name="zipCode" {...zipCode} />
         </Form.Field>
         <Form.Field>
+          {addNumbersJsx()}
+        </Form.Field>
+        <Form.Field>
           <label>Staff Role</label>
           <select onChange={handleStaffTypeChange}>
             {staffOptions.map(option =>
@@ -95,7 +143,7 @@ const PersonalDetailsForm = props => {
             )}
           </select>
         </Form.Field>
-        <div style={{ marginTop: 20, float: 'right', display: 'inline-block' }}>
+        <div style={buttonStyle}>
           <Button style={{ marginRight: 5 }} onClick={stepBack(props.step)}>
             Back</Button>
 

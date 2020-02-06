@@ -21,7 +21,7 @@ const sexOptions = [
 ]
 
 const PersonalDetailsForm = props => {
-  const [ssn, setSsn] = useField('number', props.rest.ssn)
+  const [ssn, ssnReset] = useField('number', props.rest.ssn)
   const [firstName, firstNameReset] = useField('text', props.rest.firstName)
   const [lastName, lastNameReset] = useField('text', props.rest.lastName)
   const [fatherName, fatherNameReset] = useField('text', props.rest.fatherName)
@@ -30,7 +30,7 @@ const PersonalDetailsForm = props => {
   const [city, cityReset] = useField('text', props.rest.city)
   const [streetAddress, streetAddressReset] = useField('text', props.rest.streetAddress)
   const [zipCode, zipCodeReset] = useField('number', props.rest.zipCode)
-  const [sex, setSex] = useState(props.rest.sex)
+  const [sex, setSex] = useState('MALE')
   const [phoneNumbers, setPhoneNumbers] = useState([])
 
   const stepContinue = step => e => {
@@ -71,45 +71,45 @@ const PersonalDetailsForm = props => {
       <Form>
         <Form.Field>
           <label>Ssn</label>
-          <input name="ssn" {...ssn} />
+          <input name="ssn" required {...ssn} />
         </Form.Field>
         <Form.Field>
           <label>First Name</label>
-          <input name="firstName" {...firstName} />
+          <input name="firstName" required {...firstName} />
         </Form.Field>
         <Form.Field>
           <label>Last Name</label>
-          <input name="lastName" {...lastName} />
+          <input name="lastName" required {...lastName} />
         </Form.Field>
         <Form.Field>
           <label>Father's Name</label>
-          <input name="fatherName" {...fatherName} />
+          <input name="fatherName" required {...fatherName} />
         </Form.Field>
         <Form.Field>
           <label>Occupation</label>
-          <input name="occupation" {...occupation} />
+          <input name="occupation" required {...occupation} />
         </Form.Field>
         <Form.Field>
           <label>Birth Date</label>
-          <input name="birthDate" {...birthDate} />
+          <input name="birthDate" required {...birthDate} />
         </Form.Field>
         <Form.Field>
           <label>City</label>
-          <input name="city" {...city} />
+          <input name="city" required {...city} />
         </Form.Field>
         <Form.Field>
           <label>Street Address</label>
-          <input name="streetAddress" {...streetAddress} />
+          <input name="streetAddress" required {...streetAddress} />
         </Form.Field>
         <Form.Field>
           <label>Zip Code</label>
-          <input name="zipCode" {...zipCode} />
+          <input name="zipCode" required {...zipCode} />
         </Form.Field>
         <Form.Field>
           <label>Sex</label>
           <select onChange={handleSexTypeChange}>
             {sexOptions.map(option =>
-              <option key={option.key} value={option.value}>{option.value}</option>
+              <option key={option.key} required value={option.value}>{option.value}</option>
             )}
           </select>
         </Form.Field>

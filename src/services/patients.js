@@ -14,6 +14,13 @@ class PatientService {
     return response.data;
   }
 
+  // http://localhost:8080/api/staff/username/:username
+  async getByUsername(username) {
+    const queryUrl = `${this.baseUrl}/username/${username}`;
+    const response = await axios.get(queryUrl);
+    return response.data;
+  }
+
   async create(patient) {
     const response = await axios.post(this.baseUrl, patient);
     return response.data;

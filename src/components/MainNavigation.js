@@ -19,6 +19,9 @@ const MainNavigation = () => {
         <Menu.Item>
           <NavLink to="/signup">Sign Up</NavLink>
         </Menu.Item>
+        <Menu.Item>
+          <NavLink to="/appointments">Appointments</NavLink>
+        </Menu.Item>
       </Menu.Menu>
     </Menu>
   )

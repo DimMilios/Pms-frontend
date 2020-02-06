@@ -42,11 +42,6 @@ const RegisterConfirm = props => {
           </Table.Row>
         </Table.Header>
 
-        {/* Object.keys(ob1).map(key => console.log(key, ob1[key])) */}
-
-        {/* keys1.forEach(([key, value]) => console.log(key, value)) */}
-
-
         <Table.Body>
           {Object.entries(props).map(([key, value]) => {
             if (typeof value !== 'object'
@@ -67,46 +62,6 @@ const RegisterConfirm = props => {
               <Table.Cell>{value}</Table.Cell>
             </Table.Row>
           )}
-          {/* <Table.Row>
-            <Table.Cell>Username:</Table.Cell>
-            <Table.Cell>{props.userProfile.username}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Email:</Table.Cell>
-            <Table.Cell>{props.userProfile.email}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Role:</Table.Cell>
-            <Table.Cell>{props.userProfile.role}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>First Name:</Table.Cell>
-            <Table.Cell>{props.firstName}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Last Name:</Table.Cell>
-            <Table.Cell>{props.lastName}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Father's Name:</Table.Cell>
-            <Table.Cell>{props.fatherName}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>City:</Table.Cell>
-            <Table.Cell>{props.city}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Street:</Table.Cell>
-            <Table.Cell>{props.streetAddress}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Zip Code:</Table.Cell>
-            <Table.Cell>{props.zipCode}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Phone Numbers:</Table.Cell>
-            <Table.Cell>{props.phoneNumbers}</Table.Cell>
-          </Table.Row> */}
         </Table.Body>
       </Table>
 
@@ -121,16 +76,16 @@ const RegisterConfirm = props => {
 }
 
 const mapStateToProps = state => ({
-  step: state.staffRegister.step,
-  userProfile: state.staffRegister.userProfile,
-  firstName: state.staffRegister.firstName,
-  lastName: state.staffRegister.lastName,
-  fatherName: state.staffRegister.fatherName,
-  city: state.staffRegister.city,
-  streetAddress: state.staffRegister.streetAddress,
-  zipCode: state.staffRegister.zipCode,
-  staffType: state.staffRegister.staffType,
-  phoneNumbers: state.staffRegister.phoneNumbers
+  step: state.register.step,
+  userProfile: state.register.userProfile,
+  firstName: state.register.firstName,
+  lastName: state.register.lastName,
+  fatherName: state.register.fatherName,
+  city: state.register.city,
+  streetAddress: state.register.streetAddress,
+  zipCode: state.register.zipCode,
+  staffType: state.register.staffType,
+  phoneNumbers: state.register.phoneNumbers
 })
 
 export default connect(mapStateToProps, {

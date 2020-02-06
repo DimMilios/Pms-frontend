@@ -37,6 +37,7 @@ const LoginPage = props => {
         <div>
           <h3>You are logged in.</h3>
           <Link to="/">Go back to Home page</Link>
+          <Button onClick={props.logoutUser}>logout</Button>
         </div>
         :
         <>
@@ -51,7 +52,7 @@ const LoginPage = props => {
             </Form.Field>
             <Button style={{ float: 'right' }} primary type="submit">Login</Button>
           </Form>
-          <Button onClick={props.logoutUser}>logout</Button>
+
         </>
       }
     </>

@@ -22,7 +22,10 @@ const initialState = {
   streetAddress: '',
   zipCode: '',
   staffType: '',
-  phoneNumbers: []
+  phoneNumbers: [],
+  occupation: '',
+  birthDate: '',
+  sex: '',
 }
 
 const nextStep = (state, action) => {

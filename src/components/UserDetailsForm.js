@@ -57,7 +57,9 @@ const UserDetailsForm = props => {
         </select>
       </Form.Field>
       <div style={{ marginTop: 20, float: 'right' }}>
-        <Form.Button primary onClick={stepContinue(props.step)}>Continue</Form.Button>
+        <Form.Button primary onClick={stepContinue(props.step)}>
+          Continue
+          </Form.Button>
       </div>
     </Form>
   )
