@@ -5,12 +5,9 @@ import {
   CREATE_APPOINTMENT_START,
   CREATE_APPOINTMENT_SUCCESS,
   CREATE_APPOINTMENT_FAIL,
-  FETCH_SSN,
-  FETCH_SSN_FAIL,
 } from '../types'
 
 import appointmentService from '../../services/appointments'
-import patientService from '../../services/patients'
 
 export const fetchAvailableDoctors = (date, time) => (dispatch) => {
   // console.log('STARTING DOCTOR FETCH', getState())
@@ -57,24 +54,6 @@ export const getUsername = () => {
   return role === 'ROLE_USER'
     ? localStorage.getItem('userId')
     : ''
-}
-
-export const fetchSsn = username => dispatch => {
-  patientService.getByUsername(username)
-    .then(response => {
-      console.log('fetchSsn: ', response)
-      dispatch({
-        type: FETCH_SSN,
-        payload: response
-      })
-    })
-    .catch(error => {
-      dispatch({
-        type: FETCH_SSN_FAIL,
-        payload: error
-      })
-    })
-
 }
 
 

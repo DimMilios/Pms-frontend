@@ -11,11 +11,13 @@ import jwtDecode from 'jwt-decode'
 
 import loginService from '../../services/login'
 
-export const loginUser = (userData, history) => dispatch => {
-  dispatch({ type: AUTH_START })
-  console.log('LOGGING IN', userData)
-  loginService.login({ ...userData })
-    .then(response => {
+export const loginUser = (userData, history) => {
+  return async dispatch => {
+    dispatch({ type: AUTH_START })
+    console.log('LOGGING IN', userData)
+
+    try {
+      const response = await loginService.login({ ...userData })
       console.log(response)
       setAuthorizationHeader(response.token)
       dispatch({
@@ -23,15 +25,38 @@ export const loginUser = (userData, history) => dispatch => {
         payload: response
       })
       history.push('/')
-    })
-    .catch(err => {
+    }
+    catch (err) {
       console.log('login error', err)
       dispatch({
         type: AUTH_FAIL,
         payload: err
       })
-    })
+    }
+  }
 }
+
+// export const loginUser = (userData, history) => dispatch => {
+//     dispatch({ type: AUTH_START })
+//     console.log('LOGGING IN', userData)
+//     const response = await loginService.login({ ...userData })
+//       .then(response => {
+//         console.log(response)
+//         setAuthorizationHeader(response.token)
+//         dispatch({
+//           type: AUTH_SUCCESS,
+//           payload: response
+//         })
+//         history.push('/')
+//       })
+//       .catch(err => {
+//         console.log('login error', err)
+//         dispatch({
+//           type: AUTH_FAIL,
+//           payload: err
+//         })
+//       })
+//   }
 
 export const logoutUser = () => dispatch => {
   window.localStorage.removeItem('loggedUser');

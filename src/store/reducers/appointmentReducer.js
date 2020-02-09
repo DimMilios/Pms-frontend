@@ -2,8 +2,6 @@ import {
   FETCH_AVAILABLE_DOCTORS_START,
   FETCH_AVAILABLE_DOCTORS_SUCCESS,
   FETCH_AVAILABLE_DOCTORS_FAIL,
-  FETCH_SSN,
-  FETCH_SSN_FAIL,
   CREATE_APPOINTMENT_START,
   CREATE_APPOINTMENT_SUCCESS,
   CREATE_APPOINTMENT_FAIL,
@@ -11,7 +9,6 @@ import {
 
 const initialState = {
   doctorId: 0,
-  ssn: 0,
   date: '',
   time: '',
   error: null,
@@ -60,19 +57,16 @@ const createAppFail = (state, action) => {
   }
 }
 
+
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_AVAILABLE_DOCTORS_START: return fetchStart(state, action)
     case FETCH_AVAILABLE_DOCTORS_SUCCESS: return fetchSuccess(state, action)
     case FETCH_AVAILABLE_DOCTORS_FAIL: return initialState
-    case FETCH_SSN: return {
-      ...state,
-      ssn: action.payload.ssn
-    }
     case CREATE_APPOINTMENT_START: return createAppStart(state, action)
     case CREATE_APPOINTMENT_SUCCESS: return createAppSuccess(state, action)
     case CREATE_APPOINTMENT_FAIL: return createAppFail(state, action)
-    case FETCH_SSN_FAIL:
     default:
       return state
   }

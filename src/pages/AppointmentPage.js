@@ -10,30 +10,30 @@ import MainNavigation from '../components/MainNavigation'
 import {
   fetchAvailableDoctors,
   getUsername,
-  fetchSsn,
   createAppointment,
 } from '../store/actions/appointmentActions'
+
+import { fetchPatient } from '../store/actions/patientActions'
 
 const AppointmentPage = props => {
   const [date] = useField('date')
   const [time] = useField('time')
   useEffect(() => {
     // const value = appointmentService.getAvailableDoctors('2020-02-03', '15:30:00')
-    if (props.appointment.ssn === 0) {
-      props.fetchSsn(getUsername())
-    }
+    // if (!props.appointment.patient) {
+    props.fetchPatient(getUsername())
+    // }
   }, [])
 
   const handleSubmit = async event => {
     event.preventDefault()
 
     await props.fetchAvailableDoctors(date.value, time.value)
-    // console.log(formData)
   }
 
   const confirmAppointment = async event => {
     event.preventDefault()
-    await props.createAppointment(props.doctorId, props.appointment.ssn, date.value, time.value)
+    await props.createAppointment(props.doctorId, props.patient.ssn, date.value, time.value)
   }
 
   const renderError = () => {
@@ -73,12 +73,13 @@ const AppointmentPage = props => {
 
 const mapStateToProps = state => ({
   appointment: state.appointment,
+  patient: state.patients.patient,
   doctorId: state.appointment.doctorId,
   error: state.appointment.error,
 })
 
 export default connect(mapStateToProps, {
   fetchAvailableDoctors,
-  fetchSsn,
+  fetchPatient,
   createAppointment,
 })(AppointmentPage)
