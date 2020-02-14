@@ -3,7 +3,8 @@ import {
   // BrowserRouter as Router,
   Route,
   Switch,
-  withRouter
+  withRouter,
+  Redirect
 } from 'react-router-dom'
 // import jwtDecode from 'jwt-decode'
 // import axios from 'axios'
@@ -19,22 +20,10 @@ import HomePage from './pages/HomePage'
 // import UserProfilesPage from './pages/UserProfilesPage'
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage'
-import AppointmentPage from './pages/AppointmentPage'
+// import AppointmentPage from './pages/AppointmentPage'
 
 import { authCheckState } from './store/actions/authActions'
-
-// const token = localStorage.getItem('loggedUser')
-// if (token) {
-//   const decodedToken = jwtDecode(token);
-//   if (decodedToken.exp * 1000 < Date.now()) {
-//     store.dispatch(logoutUser());
-//     window.location.href = '/login';
-//   } else {
-//     // store.dispatch({ type:  });
-//     axios.defaults.headers.common['Authorization'] = token;
-//     // store.dispatch(getUserData());
-//   }
-// }
+import PatientServicePage from './pages/PatientServicePage'
 
 const App = props => {
 
@@ -42,21 +31,33 @@ const App = props => {
     props.onTryAutoSignup()
   }, [])
 
-  return (
-    <Container>
+  let routes = (
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/signup" component={SignUpPage} />
+    </Switch>
+  )
+
+  if (props.authenticated) {
+    routes = (
       <Switch>
         <Route exact path="/" component={HomePage} />
-        {/* <Route exact path="/" component={UserProfilesPage} /> */}
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignUpPage} />
-        <Route exact path="/appointments" component={AppointmentPage} />
+        <Route path="/services" component={PatientServicePage} />
       </Switch>
+    )
+  }
+  return (
+    <Container>
+      {routes}
     </Container>
   )
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.token !== null
+  authenticated: state.user.token !== ''
 })
 
 const mapDispatchToProps = dispatch => ({

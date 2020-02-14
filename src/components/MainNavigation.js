@@ -1,31 +1,51 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
 
-const MainNavigation = () => {
+import { logoutUser } from '../store/actions/authActions'
+
+const MainNavigation = props => {
+
+  let menuItems = (
+    <Menu.Menu position={"right"}>
+      <Menu.Item>
+        <Link to="/">Home</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/login">Login</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/signup">Sign Up</Link>
+      </Menu.Item>
+    </Menu.Menu>
+  )
+
+  if (props.authenticated) {
+    menuItems = (
+      <Menu.Menu position={"right"}>
+        <Menu.Item>
+          <Link to="/">Home</Link>
+        </Menu.Item>
+        <Menu.Item onClick={props.logoutUser}>
+          Log Out
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/services">Services</Link>
+        </Menu.Item>
+      </Menu.Menu>
+    )
+  }
   return (
     <Menu inverted>
       <Menu.Item>PMS</Menu.Item>
-      <Menu.Menu position={"right"}>
-        <Menu.Item>
-          <NavLink to="/">Home</NavLink>
-        </Menu.Item>
-        <Menu.Item>
-          <NavLink to="/user-profiles">User Profiles</NavLink>
-        </Menu.Item>
-        <Menu.Item>
-          <NavLink to="/login">Login</NavLink>
-        </Menu.Item>
-        <Menu.Item>
-          <NavLink to="/signup">Sign Up</NavLink>
-        </Menu.Item>
-        <Menu.Item>
-          <NavLink to="/appointments">Appointments</NavLink>
-        </Menu.Item>
-      </Menu.Menu>
+      {menuItems}
     </Menu>
   )
 }
 
+const mapStateToProps = state => ({
+  authenticated: state.user.token !== ''
+})
 
-export default MainNavigation
+export default connect(mapStateToProps, { logoutUser })(MainNavigation)

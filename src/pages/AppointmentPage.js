@@ -20,9 +20,9 @@ const AppointmentPage = props => {
   const [time] = useField('time')
   useEffect(() => {
     // const value = appointmentService.getAvailableDoctors('2020-02-03', '15:30:00')
-    // if (!props.appointment.patient) {
-    props.fetchPatient(getUsername())
-    // }
+    if (!props.patient) {
+      props.fetchPatient(getUsername())
+    }
   }, [])
 
   const handleSubmit = async event => {

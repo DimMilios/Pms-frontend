@@ -10,16 +10,16 @@ class UserProfileService {
     return UserProfileService.instance;
   }
 
-  getConfig() {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser');
-    const user = JSON.parse(loggedUserJSON);
+  // getConfig() {
+  //   const loggedUserJSON = window.localStorage.getItem('loggedUser');
+  //   const user = JSON.parse(loggedUserJSON);
 
-    return {
-      headers: {
-        Authorization: user,
-      }
-    }
-  }
+  //   return {
+  //     headers: {
+  //       Authorization: user,
+  //     }
+  //   }
+  // }
 
   async getAll() {
     const response = await axios.get(this.baseUrl);

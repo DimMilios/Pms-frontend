@@ -2,7 +2,7 @@ import React from 'react'
 import { useField } from '../hooks'
 import { Link } from 'react-router-dom'
 
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import MainNavigation from '../components/MainNavigation'
 
 import { connect } from 'react-redux'
@@ -10,13 +10,8 @@ import { loginUser, logoutUser } from '../store/actions/authActions'
 
 
 const LoginPage = props => {
-  const [username, usernameReset] = useField('text')
-  const [password, passwordReset] = useField('password')
-
-  const handleLogout = () => {
-    // setUser(null)
-    // window.localStorage.removeItem('loggedUser')
-  }
+  const [username] = useField('text')
+  const [password] = useField('password')
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -40,20 +35,41 @@ const LoginPage = props => {
           <Button onClick={props.logoutUser}>logout</Button>
         </div>
         :
-        <>
-          <Form onSubmit={handleLogin}>
-            <Form.Field>
-              <label>Username</label>
-              <input name="username" {...username} />
-            </Form.Field>
-            <Form.Field>
-              <label>Password</label>
-              <input name="password" {...password} />
-            </Form.Field>
-            <Button style={{ float: 'right' }} primary type="submit">Login</Button>
-          </Form>
-
-        </>
+        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' textAlign='center'>
+              Log-in to your account
+            </Header>
+            <Form onSubmit={handleLogin} size='large'>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Username'
+                  name='username'
+                  {...username}
+                />
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  name='password'
+                  {...password}
+                />
+                <Button
+                  fluid
+                  size='large'
+                  primary
+                  type="submit">Login</Button>
+              </Segment>
+            </Form>
+            <Message>
+              Don't have an account? <Link to='/signup'>Sign Up</Link>
+            </Message>
+          </Grid.Column>
+        </Grid>
       }
     </>
   )

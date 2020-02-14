@@ -5,14 +5,13 @@ import { useField } from '../hooks'
 
 const options = [
   { key: 'u', text: 'User', value: 'USER' },
-  { key: 'a', text: 'Admin', value: 'ADMIN' },
   { key: 's', text: 'Staff', value: 'STAFF' },
 ]
 
 const UserDetailsForm = props => {
-  const [username, usernameReset] = useField('text', props.userProfile.username)
-  const [email, emailReset] = useField('email', props.userProfile.email)
-  const [password, passwordReset] = useField('password', props.userProfile.password)
+  const [username] = useField('text', props.userProfile.username)
+  const [email] = useField('email', props.userProfile.email)
+  const [password] = useField('password', props.userProfile.password)
   const [role, setRole] = useState('USER')
 
   const handleRoleChange = e => {

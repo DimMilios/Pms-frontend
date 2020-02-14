@@ -21,17 +21,17 @@ const sexOptions = [
 ]
 
 const PersonalDetailsForm = props => {
-  const [ssn, ssnReset] = useField('number', props.rest.ssn)
-  const [firstName, firstNameReset] = useField('text', props.rest.firstName)
-  const [lastName, lastNameReset] = useField('text', props.rest.lastName)
-  const [fatherName, fatherNameReset] = useField('text', props.rest.fatherName)
-  const [occupation, occupationReset] = useField('text', props.rest.occupation)
-  const [birthDate, birthDateReset] = useField('date', props.rest.birthDate)
-  const [city, cityReset] = useField('text', props.rest.city)
-  const [streetAddress, streetAddressReset] = useField('text', props.rest.streetAddress)
-  const [zipCode, zipCodeReset] = useField('number', props.rest.zipCode)
+  const [ssn] = useField('number', props.rest.ssn)
+  const [firstName] = useField('text', props.rest.firstName)
+  const [lastName] = useField('text', props.rest.lastName)
+  const [fatherName] = useField('text', props.rest.fatherName)
+  const [occupation] = useField('text', props.rest.occupation)
+  const [birthDate] = useField('date', props.rest.birthDate)
+  const [city] = useField('text', props.rest.city)
+  const [streetAddress] = useField('text', props.rest.streetAddress)
+  const [zipCode] = useField('number', props.rest.zipCode)
   const [sex, setSex] = useState('MALE')
-  const [phoneNumbers, setPhoneNumbers] = useState([])
+  // const [phoneNumbers, setPhoneNumbers] = useState([])
 
   const stepContinue = step => e => {
     e.preventDefault()

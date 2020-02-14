@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   patients: [],
-  patient: {},
+  patient: null,
   loading: false
 }
 
